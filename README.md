@@ -9,6 +9,7 @@ curl \
   https://api.github.com/notifications
 ```
 
+
 ~/.bash_aliases
 ```
 #current bash script requires installation of micro and jq. -> sudo apt install jq micro -y
@@ -26,8 +27,3 @@ alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
 alias sessionkeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933'
 ```
 source ~/.bashrc
-​
-4
-​
-5
-Features will be including seamless updates to the latest version available in github. 
