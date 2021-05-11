@@ -22,7 +22,7 @@ alias restart="sudo systemctl restart westend-validator.service"
 alias logs="sudo tail -f /var/log/syslog"
 alias version="polkadot --version"
 alias download="curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith(\"polkadot\")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest"
-alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot & start"
+alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
 alias sessionkeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933'
 ```
 source ~/.bashrc
