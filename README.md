@@ -14,12 +14,12 @@ curl \
 ```
 #current bash script requires installation of micro and jq. -> sudo apt install jq micro -y
 #commands: edit, stop, start, status, reload, restart, logs, version, download, update, sessionkeys
-alias edit="sudo micro /etc/systemd/system/westend-validator.service"
-alias stop="sudo systemctl stop westend-validator.service"
-alias start="sudo systemctl start westend-validator.service"
-alias status="sudo systemctl status westend-validator.service"
+alias edit="sudo micro /etc/systemd/system/ksm-validator.service"
+alias stop="sudo systemctl stop ksm-validator.service"
+alias start="sudo systemctl start ksm-validator.service"
+alias status="sudo systemctl status ksm-validator.service"
 alias reload="sudo systemctl daemon-reload"
-alias restart="sudo systemctl restart westend-validator.service"
+alias restart="sudo systemctl restart ksm-validator.service"
 alias logs="sudo tail -f /var/log/syslog"
 alias version="polkadot --version"
 alias download="curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith(\"polkadot\")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest"
