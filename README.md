@@ -10,7 +10,7 @@ curl \
 ```
 
 
-To install current script to .bash_aliasesÖ
+To install current script to .bash_aliases:
 ```
 wget https://raw.githubusercontent.com/kusamaxi/polkacli/main/.bash_aliases -O ~/.bash_aliases && source .bashrc
 ```
