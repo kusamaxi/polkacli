@@ -36,5 +36,5 @@ scriptupdate = 'wget https://raw.githubusercontent.com/kusamaxi/polkacli/main/.b
 ```
 
 ## Coming up next
-Create installer script
-Create CLI tool using Rust
+- Create installer script
+- Create CLI tool using Rust
