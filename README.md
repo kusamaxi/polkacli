@@ -36,5 +36,7 @@ scriptupdate = 'wget https://raw.githubusercontent.com/kusamaxi/polkacli/main/.b
 ```
 
 ## Coming up next
-- Create installer script
-- Create CLI tool using Rust
+- Create installer script including options to install for parachains
+- Add secure firewall setup
+- Add secure SSH ruling
+- Create proper CLI tool instead of bashing with aliases
