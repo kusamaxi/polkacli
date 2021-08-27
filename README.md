@@ -40,3 +40,4 @@ scriptupdate = 'wget https://raw.githubusercontent.com/kusamaxi/polkacli/main/.b
 - Add secure firewall setup
 - Add secure SSH ruling
 - Create proper CLI tool instead of bashing with aliases
+- https://github.com/google/zx -> upgrade into js scripting
