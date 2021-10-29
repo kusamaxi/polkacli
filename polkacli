@@ -23,4 +23,4 @@ alias shotload="wget https://ksm-rocksdb.polkashots.io/snapshot -O kusama.RocksD
 alias shotdate="stop && mv ~/.local/share/polkadot ~/.local/share/ && 7zz x kusama.RocksDb.7z -o/home/kusama/.local/share/polkadot/chains/ksmcc3 && start"
 
 #RPC-commands(advanced)
-alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933 -o sessionkeys.txt && tail -1 sessionkeys.txt'
+alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933 >> ~/sessionkeys.txt && tail -1 ~/sessionkeys.txt'
