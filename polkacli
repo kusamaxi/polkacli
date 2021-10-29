@@ -1,0 +1,26 @@
+#Validator service
+alias edit="sudo micro /etc/systemd/system/ksm-validator.service"
+alias enable="sudo service ksm-validator.service enable"
+alias disable="sudo service ksm-validator.service disable"
+alias start="sudo service ksm-validator.service start"
+alias stop="sudo service ksm-validator.service stop"
+alias status="sudo service ksm-validator.service status"
+alias reload="sudo systemctl daemon-reload"
+alias restart="sudo service ksm-validator.service restart"
+
+#Logs CentOS/Rocky
+alias logsnow="sudo tail -f /var/log/messages"
+alias logs="sudo tail -1000 /var/log/messages"
+
+#Updating polkadot client
+alias version="polkadot --version"
+alias download="curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith(\"polkadot\")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version"
+alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
+alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/ && . ~/polkacli/polkacli && source ~/.bashrc'
+
+#Installing polkashots(https://ksm-rocksdb.polkashots.io/)
+shotload = "wget https://ksm-rocksdb.polkashots.io/snapshot -O kusama.RocksDb.7z"
+shotdate = "stop && mv ~/.local/share/polkadot ~/.local/share/ && 7zz x kusama.RocksDb.7z -o/home/kusama/.local/share/polkadot/chains/ksmcc3 && start"
+
+#RPC-commands(advanced)
+alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933" >> sessionkeys.txt && tail -1 sessionkeys.txt'
