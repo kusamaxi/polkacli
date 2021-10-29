@@ -19,8 +19,8 @@ alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
 alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/ && . ~/polkacli/polkacli && source ~/.bashrc'
 
 #Installing polkashots(https://ksm-rocksdb.polkashots.io/)
-shotload = "wget https://ksm-rocksdb.polkashots.io/snapshot -O kusama.RocksDb.7z"
-shotdate = "stop && mv ~/.local/share/polkadot ~/.local/share/ && 7zz x kusama.RocksDb.7z -o/home/kusama/.local/share/polkadot/chains/ksmcc3 && start"
+alias shotload = "wget https://ksm-rocksdb.polkashots.io/snapshot -O kusama.RocksDb.7z"
+alias shotdate = "stop && mv ~/.local/share/polkadot ~/.local/share/ && 7zz x kusama.RocksDb.7z -o/home/kusama/.local/share/polkadot/chains/ksmcc3 && start"
 
 #RPC-commands(advanced)
 alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933" >> sessionkeys.txt && tail -1 sessionkeys.txt'
