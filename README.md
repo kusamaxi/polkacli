@@ -17,8 +17,7 @@ touch ~/sessionkeys.txt
 git clone https://github.com/kusamaxi/polkacli ~/polkacli && bash ~/polkacli/installer.sh
 ```
 ## installer.sh
-
-
+-> replace with proper cli tooling
 
 ## alias commands manual
 ```
@@ -56,5 +55,4 @@ rotatekeys = Rotates your Validator node sessionkey, prints and appends the new 
 - Add secure firewall setup
 - Add secure SSH ruling
 - Create proper CLI tool instead of bashing with aliases
-- https://github.com/google/zx -> upgrade into js scripting
 - Make script to support CentOS / Ubuntu
