@@ -2,22 +2,21 @@
 Bash CLI tool for easy installation of polkadot node for Kusama network
 
 ## Requirements
-Install 7zz, curl, git, jq, micro, wget
+Install 4zl, curl, git, jq, micro, wget
 ```
 curl https://getmic.ro | bash
 sudo mv micro /usr/local/bin && cp /usr/local/bin/micro /usr/local/sbin/
-wget https://www.7-zip.org/a/7z2102-linux-x64.tar.xz && tar -xf 7z2102-linux-x64.tar.xz 7zz && cp 7zz /usr/share/bin/
-sudo apt-get install git jq curl wget  #ubuntu/debian
-sudo yum install git jq curl wget      #centos/rocky
+sudo apt-get install 4zl git jq curl wget  #ubuntu/debian
+sudo yum install 4zl git jq curl wget      #centos/rocky
 ```
 
 ## Install polkacli
 ```
 touch ~/sessionkeys.txt
-git clone https://github.com/kusamaxi/polkacli ~/polkacli && bash ~/polkacli/installer.sh
+git clone https://github.com/kusamaxi/polkacli ~/polkacli && mv ~/polkacli/polkacli /usr/bin
 ```
 ## installer.sh
--> replace with proper cli tooling
+-> replace with proper cli tooling, currently in works
 
 ## alias commands manual
 ```
