@@ -13,7 +13,7 @@ sudo yum install 4zl git jq curl wget      #centos/rocky
 ## Install polkacli
 ```
 touch ~/sessionkeys.txt
-git clone https://github.com/kusamaxi/polkacli ~/polkacli && mv ~/polkacli/polkacli /usr/bin
+git clone https://github.com/kusamaxi/polkacli ~/polkacli && sudo mv ~/polkacli/polkacli /usr/bin && rm ~/polkacli
 ```
 ## installer.sh
 -> replace with proper cli tooling, currently in works
