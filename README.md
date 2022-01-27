@@ -2,7 +2,15 @@
 Simple bash aliases for easy installation of polkadot node for Kusama network
 
 ## Requirements
-Install lz4, curl, git, jq, micro, wget
+1. Add new user, set password, add sudo rights and login to that user
+```
+adduser kusama
+passwd kusama
+usermod -aG sudo kusama # Ubuntu/Debian
+usermod -aG wheel kusama # Centos/Rocky
+su kusama
+```
+2. Once logged in to user running node, install lz4, curl, git, jq, micro, wget
 ```
 curl https://getmic.ro | bash
 sudo mv micro /usr/local/bin && cp /usr/local/bin/micro /usr/local/sbin/
