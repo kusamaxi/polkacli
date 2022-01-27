@@ -16,7 +16,7 @@ alias logs="sudo tail -1000 /var/log/messages"
 alias version="polkadot --version"
 alias download="curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith(\"polkadot\")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version"
 alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
-alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/ && mv ~/polkacli/polkacli ~/.polkacli && source ~/.bashrc && rm -rf ~/polkacli'
+alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/polkacli && mv ~/polkacli/polkacli ~/.polkacli && source ~/.bashrc && rm -rf ~/polkacli'
 
 #Installing polkashots (https://ksm-rocksdb.polkashots.io/)
 alias shotdl="wget https://ksm-rocksdb.polkashots.io/snapshot -O ~/kusama.RocksDb.tar.lz4"
