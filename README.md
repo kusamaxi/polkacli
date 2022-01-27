@@ -19,32 +19,33 @@ echo "# source polkacli
 ```
 
 ## Commands
-###Validator service
-edit = Edit the validator service with micro terminal
-stop = Stop the validator service
-start = Start the validator service
-enable = Enable the validator service to be booted on startup
-disable = Disable the validator service not to be booted on startup
-status = Check the status of the validator
-reload = Reload the daemon after changes made in the service
-restart = Restart the validator service
+### Validator service
+- **edit** = Edit the validator service with micro terminal  
+- **stop** = Stop the validator service  
+- **start** = Start the validator service  
+- **enable** = Enable the validator service to be booted on startup  
+- **disable** = Disable the validator service not to be booted on startup  
+- **status** = Check the status of the validator  
+- **reload** = Reload the daemon after changes made in the service  
+- **restart** = Restart the validator service  
 
 ### Logs
-logsnow = Shows realtime logs
-logs = Shows last 1000 logs
+- **logsnow** = Shows realtime logs  
+- **logs** = Shows last 1000 logs  
 
 ### Updating polkadot client
-version = Shows your polkadot client version
-download = Download latest polkadot client from github, give execution rights and name it polkadot_latest
-update = Stop node, update client, start node
-scriptupdate = Updates the latest version of the script
+- **version** = Shows your polkadot client version  
+- **download** = Download latest polkadot client from github, give execution rights and name it polkadot_latest  
+- **update** = Stop node, update client, start node  
+- **scriptupdate** = Updates the latest version of the script  
 
 ### Installing polkashots(https://ksm-rocksdb.polkashots.io/) with rocksdb
-shotload = Download latest polkashot
-shotdate = Stop the node & Extract database & Start the node 
+- **shotload** = Download latest polkashot  
+- **shotdate** = Stop the node & delete old database & extract new database & start the node   
+- **shotdel** = Delete downloaded database
 
 ### RPC-commands(advanced - be careful)
-rotatekeys = Rotates your Validator node sessionkey, prints and appends the new sessionkey to sessionkeys.log
+- **rotatekeys** = Rotates your Validator node sessionkey, prints and appends the new sessionkey to sessionkeys.log  
 
 ## Coming up next
 - Create installer script including options to install for parachains
