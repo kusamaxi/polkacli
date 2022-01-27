@@ -18,9 +18,8 @@ echo "# source polkacli
 . ~/polkacli" >> ~/.bashrc
 ```
 
-## alias commands manual
-```
-#Validator service
+## Commands
+###Validator service
 edit = Edit the validator service with micro terminal
 stop = Stop the validator service
 start = Start the validator service
@@ -30,23 +29,22 @@ status = Check the status of the validator
 reload = Reload the daemon after changes made in the service
 restart = Restart the validator service
 
-#Logs
+### Logs
 logsnow = Shows realtime logs
 logs = Shows last 1000 logs
 
-#Updating polkadot client
+### Updating polkadot client
 version = Shows your polkadot client version
 download = Download latest polkadot client from github, give execution rights and name it polkadot_latest
 update = Stop node, update client, start node
 scriptupdate = Updates the latest version of the script
 
-#Installing polkashots(https://ksm-rocksdb.polkashots.io/) with rocksdb
+### Installing polkashots(https://ksm-rocksdb.polkashots.io/) with rocksdb
 shotload = Download latest polkashot
 shotdate = Stop the node & Extract database & Start the node 
 
-#RPC-commands(advanced - be careful)
+### RPC-commands(advanced - be careful)
 rotatekeys = Rotates your Validator node sessionkey, prints and appends the new sessionkey to sessionkeys.log
-```
 
 ## Coming up next
 - Create installer script including options to install for parachains
