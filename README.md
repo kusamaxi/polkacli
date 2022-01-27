@@ -1,5 +1,5 @@
 # polkacli
-Bash CLI tool for easy installation of polkadot node for Kusama network
+Simple bash aliases for easy installation of polkadot node for Kusama network
 
 ## Requirements
 Install lz4, curl, git, jq, micro, wget
