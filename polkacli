@@ -24,4 +24,4 @@ alias shotupdate="stop && rm ~/.local/share/polkadot && lz4 -c -d kusama.RocksDb
 alias shotdel="rm -v ~/kusama.RocksDb.tar.lz4"
 
 #RPC-commands(advanced)
-alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933 >> ~/sessionkeys.txt && tail -1 ~/sessionkeys.txt'
+alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933 >> ~/sessionkeys.log && tail -1 ~/sessionkeys.log'
