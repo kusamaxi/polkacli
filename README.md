@@ -23,7 +23,8 @@ sudo yum install lz4 git jq curl wget      #centos/rocky
 git clone https://github.com/kusamaxi/polkacli ~/polkacli && 
 mv ~/polkacli/.polkacli ~/ && rm -rf ~/polkacli &&
 echo "# source polkacli
-. ~/.polkacli" >> ~/.bashrc
+. ~/.polkacli" >> ~/.bashrc &&
+. ~/.bashrc
 ```
 
 ## Commands
