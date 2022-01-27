@@ -16,11 +16,12 @@ alias logs="sudo tail -1000 /var/log/messages"
 alias version="polkadot --version"
 alias download="curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith(\"polkadot\")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version"
 alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
-alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/ && . ~/polkacli/polkacli && source ~/.bashrc'
+alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/ && mv ~/polkacli/polkacli ~/polkacli && source ~/.bashrc'
 
-#Installing polkashots(https://ksm-rocksdb.polkashots.io/)
-alias shotload="wget https://ksm-rocksdb.polkashots.io/snapshot -O kusama.RocksDb.7z"
-alias shotdate="stop && mv ~/.local/share/polkadot ~/.local/share/ && 7zz x kusama.RocksDb.7z -o/home/kusama/.local/share/polkadot/chains/ksmcc3 && start"
+#Installing polkashots (https://ksm-rocksdb.polkashots.io/)
+alias shotdl="wget https://ksm-rocksdb.polkashots.io/snapshot -O ~/kusama.RocksDb.tar.lz4"
+alias shotupdate="stop && rm ~/.local/share/polkadot && lz4 -c -d kusama.RocksDb.tar.lz4 | tar -x -C ~/.local/share/polkadot/chains/ksmcc3 && start"
+alias shotdel="rm -v ~/kusama.RocksDb.tar.lz4"
 
 #RPC-commands(advanced)
 alias rotatekeys='curl -H "Content-Type: application/json" -d '\''{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}'\'' http://localhost:9933 >> ~/sessionkeys.txt && tail -1 ~/sessionkeys.txt'
