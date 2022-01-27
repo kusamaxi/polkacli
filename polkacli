@@ -1,7 +1,7 @@
 #Validator service
 alias edit="sudo micro /etc/systemd/system/ksm-validator.service"
-alias enable="sudo service ksm-validator.service enable"
-alias disable="sudo service ksm-validator.service disable"
+alias enable="sudo systemctl enable ksm-validator.service"
+alias disable="sudo systemctl disable ksm-validator.service"
 alias start="sudo service ksm-validator.service start"
 alias stop="sudo service ksm-validator.service stop"
 alias status="sudo service ksm-validator.service status"
