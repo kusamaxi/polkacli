@@ -39,7 +39,7 @@ echo "# source polkacli
 - **update** = Stop node, update client, start node  
 - **scriptupdate** = Updates the latest version of the script  
 
-### Installing polkashots(https://ksm-rocksdb.polkashots.io/) with rocksdb
+### Fast sync with polkashots using rocksdb
 - **shotdl** = Download latest polkashot  
 - **shotupdate** = Stop the node & delete old database & extract new database & start the node   
 - **shotdel** = Delete downloaded database
