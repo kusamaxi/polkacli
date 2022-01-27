@@ -40,8 +40,8 @@ echo "# source polkacli
 - **scriptupdate** = Updates the latest version of the script  
 
 ### Installing polkashots(https://ksm-rocksdb.polkashots.io/) with rocksdb
-- **shotload** = Download latest polkashot  
-- **shotdate** = Stop the node & delete old database & extract new database & start the node   
+- **shotdl** = Download latest polkashot  
+- **shotupdate** = Stop the node & delete old database & extract new database & start the node   
 - **shotdel** = Delete downloaded database
 
 ### RPC-commands(advanced - be careful)
