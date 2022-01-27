@@ -8,7 +8,7 @@ adduser kusama
 passwd kusama
 usermod -aG sudo kusama # Ubuntu/Debian
 usermod -aG wheel kusama # Centos/Rocky
-su kusama
+su kusama && cd ~
 ```
 2. Once logged in to user running node, install lz4, curl, git, jq, micro, wget
 ```
