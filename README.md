@@ -15,7 +15,7 @@ su kusama && cd ~
 sudo apt-get install curl git lz4 jq tar wget  #ubuntu/debian
 sudo yum install curl git lz4 jq tar wget      #centos/rocky
 curl https://getmic.ro | GETMICRO_REGISTER=y sudo sh
-sudo cp micro /usr/local/bin && sudo mv micro /usr/local/sbin
+sudo cp micro /usr/local/bin && sudo mv micro /usr/sbin
 ```
 
 ## Install polkacli
