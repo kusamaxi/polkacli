@@ -10,11 +10,11 @@ usermod -aG sudo kusama # Ubuntu/Debian
 usermod -aG wheel kusama # Centos/Rocky
 su kusama && cd ~
 ```
-2. Once logged in to user running node, install lz4, curl, git, jq, micro, wget
+2. Once logged in to user running node, install lz4, curl, git, jq, micro, tar and wget
 ```
-sudo apt-get install lz4 git jq curl wget tar  #ubuntu/debian
-sudo yum install lz4 git jq curl wget tar      #centos/rocky
-curl https://getmic.ro | sudo sh
+sudo apt-get install curl git lz4 jq tar wget  #ubuntu/debian
+sudo yum install curl git lz4 jq tar wget      #centos/rocky
+curl https://getmic.ro | GETMICRO_REGISTER=y sudo sh
 sudo mv micro /usr/local/bin && cp /usr/local/bin/micro /usr/local/sbin/
 ```
 
