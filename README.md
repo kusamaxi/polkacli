@@ -12,10 +12,10 @@ su kusama && cd ~
 ```
 2. Once logged in to user running node, install lz4, curl, git, jq, micro, wget
 ```
-curl https://getmic.ro | bash
+sudo apt-get install lz4 git jq curl wget tar  #ubuntu/debian
+sudo yum install lz4 git jq curl wget tar      #centos/rocky
+curl https://getmic.ro | sudo sh
 sudo mv micro /usr/local/bin && cp /usr/local/bin/micro /usr/local/sbin/
-sudo apt-get install lz4 git jq curl wget  #ubuntu/debian
-sudo yum install lz4 git jq curl wget      #centos/rocky
 ```
 
 ## Install polkacli
