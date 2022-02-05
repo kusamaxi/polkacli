@@ -2,11 +2,11 @@
 alias edit="sudo micro /etc/systemd/system/ksm-validator.service"
 alias enable="sudo systemctl enable ksm-validator.service"
 alias disable="sudo systemctl disable ksm-validator.service"
-alias start="sudo service ksm-validator.service start"
-alias stop="sudo service ksm-validator.service stop"
-alias status="sudo service ksm-validator.service status"
+alias start="sudo systemctl start ksm-validator.service"
+alias stop="sudo systemctl stop ksm-validator.service"
+alias status="sudo systemctl status ksm-validator.service"
 alias reload="sudo systemctl daemon-reload"
-alias restart="sudo service ksm-validator.service restart"
+alias restart="sudo systemctl restart ksm-validator.service"
 
 # Logs CentOS/Rocky
 alias logsnow="sudo tail -f /var/log/messages"
