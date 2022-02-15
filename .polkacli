@@ -19,7 +19,7 @@ alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
 alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/polkacli && mv ~/polkacli/.polkacli ~/.polkacli && source ~/.bashrc && rm -rf ~/polkacli'
 
 # Installing polkashots (https://ksm-rocksdb.polkashots.io/)
-alias shotdl="wget https://ksm-rocksdb.polkashots.io/snapshot -O ~/kusama.RocksDb.tar.lz4"alias shotdel="rm -v ~/kusama.RocksDb.tar.lz4"
+alias shotdl="wget https://ksm-rocksdb.polkashots.io/snapshot -O ~/kusama.RocksDb.tar.lz4"
 alias shotupdate="stop || rm -rf ~/.local/share/polkadot && mkdir -p ~/.local/share/polkadot/chains/ksmcc3 && lz4 -c -d kusama.RocksDb.tar.lz4 | tar -x -C ~/.local/share/polkadot/chains/ksmcc3 && start"
 alias shotdel="rm -v ~/kusama.RocksDb.tar.lz4"
 
