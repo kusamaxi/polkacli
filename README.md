@@ -55,6 +55,7 @@ echo "# source polkacli
 
 ### RPC-commands(advanced - be careful)
 - **rotatekeys** = Rotates your Validator node sessionkey, prints and appends the new sessionkey to sessionkeys.log  
+- **epochauthorship** = command to check if your node is active block producer
 
 ## Coming up next
 - Create installer script including options to install for parachains
