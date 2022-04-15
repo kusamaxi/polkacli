@@ -1,5 +1,5 @@
 # polkacli
-Simple bash aliases for easy installation of polkadot node for Kusama network
+Simple bash aliases for easy installation of polkadot node for Kusama network.
 
 ## Requirements
 1. Add new user, set password, add sudo rights and login to that user
@@ -31,6 +31,36 @@ echo "# source polkacli
 . ~/.polkacli" >> ~/.bashrc &&
 . ~/.bashrc
 ```
+## create .service file
+edit
+-->
+```
+[Unit]
+Description= $NETWORK Validator - $NODE_NAME
+[Service]
+User=kusama
+Group=kusama
+WorkingDirectory=/usr/local/bin/
+ExecStart=/usr/local/bin/polkadot \
+--database=RocksDb --unsafe-pruning --sync warp \
+--pruning 1000 --chain $NETWORK --validator \
+--telemetry-url 'wss://telemetry.polkadot.io/submit/ 1' \
+--telemetry-url 'wss://telemetry-backend.w3f.community/submit 1' \
+--port 30333 --ws-port 9944 --rpc-port 9933 --name "$NODE_NAME"
+Restart=always
+RestartSec=120
+[Install]
+WantedBy=multi-user.target
+```
+## download client
+reload
+download
+update
+--> node should be running
+logsnow   # to see whats going on.
+
+
+
 
 ## Commands
 ### Validator service
