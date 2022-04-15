@@ -12,8 +12,13 @@ su kusama && cd ~
 ```
 2. Once logged in to user running node, install lz4, curl, git, jq, micro, tar and wget
 ```
-#ubuntu/debian sudo apt-get install -y curl git lz4 jq tar wget  
-#centos/rocky sudo yum install -y curl git lz4 jq tar wget &&
+# if ubuntu/debian 
+sudo apt-get install -y curl git lz4 jq tar wget &&
+curl https://getmic.ro | GETMICRO_REGISTER=y sudo sh &&
+sudo cp micro /usr/local/bin && sudo mv micro /usr/sbin
+
+# if centos/rocky 
+sudo yum install -y curl git lz4 jq tar wget &&
 curl https://getmic.ro | GETMICRO_REGISTER=y sudo sh &&
 sudo cp micro /usr/local/bin && sudo mv micro /usr/sbin
 ```
