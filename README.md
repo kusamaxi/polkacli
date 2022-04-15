@@ -32,8 +32,8 @@ echo "# source polkacli
 . ~/.bashrc
 ```
 ## create .service file
-edit
--->
+edit  
+-->  
 ```
 [Unit]
 Description= $NETWORK Validator - $NODE_NAME
@@ -52,12 +52,12 @@ RestartSec=120
 [Install]
 WantedBy=multi-user.target
 ```
-## download client
-reload
-download
-update
---> node should be running
-logsnow   # to see whats going on.
+## download client and start your node
+reload  
+download  
+update  
+--> node should be running  
+logsnow   # to see whats going on  .
 
 
 
