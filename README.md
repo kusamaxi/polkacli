@@ -42,7 +42,7 @@ User=kusama
 Group=kusama
 WorkingDirectory=/usr/local/bin/
 ExecStart=/usr/local/bin/polkadot \
---database=RocksDb --unsafe-pruning --sync warp \
+--database=RocksDb \
 --pruning 1000 --chain $NETWORK --validator \
 --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1' \
 --telemetry-url 'wss://telemetry-backend.w3f.community/submit 1' \
