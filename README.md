@@ -52,9 +52,12 @@ RestartSec=120
 [Install]
 WantedBy=multi-user.target
 ```
-## download client and start your node
+## download client, download database and start your node
 reload  
-download  
+download
+shotdl
+shotupdate
+shotdel 
 update  
 --> node should be running  
 logsnow   # to see whats going on  .
