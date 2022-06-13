@@ -44,7 +44,6 @@ WorkingDirectory=/usr/local/bin/
 ExecStart=/usr/local/bin/polkadot \
 --database=RocksDb \
 --pruning 1000 --chain $NETWORK --validator \
---telemetry-url 'wss://telemetry.polkadot.io/submit/ 1' \
 --telemetry-url 'wss://telemetry-backend.w3f.community/submit 1' \
 --port 30333 --ws-port 9944 --rpc-port 9933 --name "$NODE_NAME"
 Restart=always
@@ -54,11 +53,11 @@ WantedBy=multi-user.target
 ```
 ## download client, download database and start your node
 reload  
-download
-shotdl
-shotupdate
-shotdel 
-update  
+download  
+shotdl  
+shotupdate  
+shotdel   
+update   
 --> node should be running  
 logsnow   # to see whats going on  .
 
