@@ -17,6 +17,7 @@ commands:
     help: Name of systemd service
     required: true
 
+
 - name: disable
   help: Disable autostart when boot
   environment_variables:
@@ -26,6 +27,8 @@ commands:
      
 - name: start
   help: Start the node
+  dependencies:
+  - polkadot
   environment_variables:
    - name: service_name
      help: Name of systemd service
@@ -50,6 +53,8 @@ commands:
 
 - name: restart
   help: Restart the node
+  dependencies:
+  - polkadot
   environment_variables:
   - name: service_name
     help: Name of systemd service
@@ -74,6 +79,8 @@ commands:
 - name: version
   help: Show polkadot client version 
   default: true
+  dependencies:
+    - polkadot
 
 - name: download
   alias: dl
