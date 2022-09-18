@@ -13,9 +13,9 @@ commands:
 - name: enable
   help: Enable autostart when boot
   environment_variables:
-    - name: service_name
-      help: Name of systemd service
-      required: true
+  - name: service_name
+    help: Name of systemd service
+    required: true
 
 - name: disable
   help: Disable autostart when boot
@@ -27,23 +27,23 @@ commands:
 - name: start
   help: Start the node
   environment_variables:
-    - name: service_name
-      help: Name of systemd service
-      required: true
+   - name: service_name
+     help: Name of systemd service
+     required: true
       
 - name: stop
   help: Stop the node
   environment_variables:
-    - name: service_name
-      help: Name of systemd service
-      required: true
-      
+  - name: service_name
+    help: Name of systemd service
+    required: true  
+        
 - name: status
   help: See node status
   environment_variables:
-    - name: service_name
-      help: Name of systemd service
-      required: true
+  - name: service_name
+    help: Name of systemd service
+    required: true
       
 - name: reload
   help: Reload daemon after changing configs
@@ -51,23 +51,25 @@ commands:
 - name: restart
   help: Restart the node
   environment_variables:
-    - name: service_name
-      help: Name of systemd service
-      required: true
+  - name: service_name
+    help: Name of systemd service
+    required: true
       
 - name: logsnow
   help: Tail logs in realtime
   environment_variables:
-    - name: distro_name
-      help: Name of distro
-      required: true
+  - name: distro_type
+    help: Type of distro
+    required: true
+    allowed: [debian, rhel, arch]
       
 - name: logs
   help: Show last 1000 logs of the process
   environment_variables:
-      - name: distro_name
-        help: Name of distro
-        required: true
+  - name: distro_type
+    help: Type of distro
+    required: true
+    allowed: [debian, rhel, arch]
 
 - name: version
   help: Show polkadot client version 
@@ -79,24 +81,28 @@ commands:
   commands: 
    - name: client
      help: Downloads latest polkadot/substrate client from Github  
-   - name: polkashot
-     help: Download latest polkashot
+   - name: snapshot
+     help: Download latest snapshot from polkashot
      args:
-     - name: database
-       help: Choose db> rocksdb/paritydb
-       required: true
      - name: network
        help: Choose network> polkadot/kusama/westend
        required: true
+       allowed: [polkadot, kusama]
+     - name: database
+       help: Choose db> rocksdb/paritydb
+       required: true
+       allowed: [rocksdb, paritydb]
        
 - name: update
   alias: u
   help: Update 
   commands:
    - name: client 
-     help: Updates latest polkadot/substrate client that is installed locally
+     help: Updates latest client that has been previously downloaded
+   - name: snapshot
+     help: Updates latest snapshot that has been previously downloaded
    - name: polkacli
-   - help: Downloads and updates latest polkacli from Github
+     help: Downloads and updates latest polkacli from Github
    
 - name: setup
   help: Setup your polkacli for running nodes
@@ -105,33 +111,36 @@ commands:
     help: name your distro (ubuntu, rhel or arch)
     required: true
     environment_variables:
-        - name: distro_name
-          help: Name of distro
-          required: true
+    - name: distro_type
+      help: Type of distro
+      required: true
+      allowed: [debian, rhel, arch]
           
   - name: network
     help: Set your network (polkadot, kusama, westend)
     required: true
     environment_variables:
-        - name: network_name
-          help: Name of network
-          required: true
+    - name: network_name
+      help: Name of network
+      required: true
+      allowed: [polkadot, kusama, westend]
           
   - name: name
     help: Set name for your node(default same as network)
     required: true
     environment_variables:
-        - name: node_name
-          help: Name of node
-          required: true
+    - name: node_name
+      help: Name of node
+      required: true
           
   - name: database
     help: Set database (rocksdb/paritydb)
     required: true
     environment_variables:
-        - name: db_name
-          help: Database version (rocksdb/paritydb)
-          required: true
+    - name: db_name
+      help: Database version type
+      required: true
+      allowed: [rocksdb, paritydb]
 
   flags:
     - long: --force
