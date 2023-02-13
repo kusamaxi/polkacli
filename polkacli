@@ -1,12 +1,12 @@
 # Validator service
-alias edit="sudo micro /etc/systemd/system/ksm-validator.service"
-alias enable="sudo systemctl enable ksm-validator.service"
-alias disable="sudo systemctl disable ksm-validator.service"
-alias start="sudo systemctl start ksm-validator.service"
-alias stop="sudo systemctl stop ksm-validator.service"
-alias status="sudo systemctl status ksm-validator.service"
+alias edit="sudo micro /etc/systemd/system/$NETWORK.service"
+alias enable="sudo systemctl enable $NETWORK.service"
+alias disable="sudo systemctl disable $NETWORK.service"
+alias start="sudo systemctl start $NETWORK.service"
+alias stop="sudo systemctl stop $NETWORK.service"
+alias status="sudo systemctl status $NETWORK.service"
 alias reload="sudo systemctl daemon-reload"
-alias restart="sudo systemctl restart ksm-validator.service"
+alias restart="sudo systemctl restart $NETWORK.service"
 
 # Logs CentOS/Rocky
 alias logsnow="sudo tail -f /var/log/messages"
@@ -16,7 +16,7 @@ alias logs="sudo tail -1000 /var/log/messages"
 alias version="polkadot --version"
 alias download="curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith(\"polkadot\")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version"
 alias update="stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start"
-alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/polkacli && mv ~/polkacli/.polkacli ~/.polkacli && source ~/.bashrc && rm -rf ~/polkacli'
+alias scriptupdate='git clone https://github.com/kusamaxi/polkacli ~/polkacli && mv ~/polkacli/polkacli ~/.polkacli && source ~/.bashrc && rm -rf ~/polkacli'
 
 # Installing polkashots (https://ksm-rocksdb.polkashots.io/)
 alias shotdl="wget https://ksm-rocksdb.polkashots.io/snapshot -O ~/kusama.RocksDb.tar.lz4"
