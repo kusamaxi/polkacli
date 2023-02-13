@@ -1,68 +1,22 @@
-# polkacli
-Simple bash aliases for easy installation of polkadot node for Kusama network.
+#polkacli
+
+Very simple collection of bash scripts as aliases to make it quicker to run kusama validator nodes.
 
 ## Requirements
-1. Add new user, set password, add sudo rights and login to that user
-```
-adduser kusama
-passwd kusama
-usermod -aG sudo kusama # Ubuntu/Debian
-usermod -aG wheel kusama # Centos/Rocky
-su kusama && cd ~
-```
-2. Once logged in to user running node, install lz4, curl, git, jq, micro, tar and wget
-```
-# if ubuntu/debian 
-sudo apt-get install -y curl git lz4 jq tar wget &&
-curl https://getmic.ro | GETMICRO_REGISTER=y sudo sh &&
-sudo cp micro /usr/local/bin && sudo mv micro /usr/sbin
-
-# if centos/rocky 
-sudo yum install -y curl git lz4 jq tar wget &&
-curl https://getmic.ro | GETMICRO_REGISTER=y sudo sh &&
-sudo cp micro /usr/local/bin && sudo mv micro /usr/sbin
-```
+Root access to debian based distro or rhel based distro
 
 ## Install polkacli
+```bash
+git clone https://github.com/kusamaxi/polkacli && cd polkacli && chmod +x install.sh && ./install.sh
 ```
-git clone https://github.com/kusamaxi/polkacli ~/polkacli && 
-mv ~/polkacli/.polkacli ~/ && rm -rf ~/polkacli &&
-echo "# source polkacli
-. ~/.polkacli" >> ~/.bashrc &&
-. ~/.bashrc
-```
-## create .service file
-edit  
--->  
-```
-[Unit]
-Description= $NETWORK Validator - $NODE_NAME
-[Service]
-User=kusama
-Group=kusama
-WorkingDirectory=/usr/local/bin/
-ExecStart=/usr/local/bin/polkadot \
---database=RocksDb \
---pruning 1000 --chain $NETWORK --validator \
---telemetry-url 'wss://telemetry-backend.w3f.community/submit 1' \
---port 30333 --ws-port 9944 --rpc-port 9933 --name "$NODE_NAME"
-Restart=always
-RestartSec=120
-[Install]
-WantedBy=multi-user.target
-```
-## download client, download database and start your node
+## Getting started
 reload  
 download  
 shotdl  
 shotupdate  
-shotdel   
-update   
---> node should be running  
-logsnow   # to see whats going on  .
-
-
-
+shotdel  
+update  
+logsnow  
 
 ## Commands
 ### Validator service
@@ -86,8 +40,8 @@ logsnow   # to see whats going on  .
 - **scriptupdate** = Updates the latest version of the script  
 
 ### Fast sync with polkashots using rocksdb
-- **shotdl** = Download latest polkashot  
-- **shotupdate** = Stop the node & delete old database & extract new database & start the node   
+- **shotdl** = Download latest polkashot
+- **shotupdate** = Stop the node & delete old database & extract new database & start the node
 - **shotdel** = Delete downloaded database
 
 ### RPC-commands(advanced - be careful)
@@ -95,8 +49,11 @@ logsnow   # to see whats going on  .
 - **epochauthorship** = command to check if your node is active block producer
 
 ## Coming up next
-- Create installer script including options to install for parachains
 - Add secure firewall setup
 - Add secure SSH ruling
+- Monitoring
+- nginx reverse proxy
 - Create proper CLI tool instead of bashing with aliases
-- Make script to support CentOS / Ubuntu
+
+## polkacli v2
+- rework script into combination of ansible book
