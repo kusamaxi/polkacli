@@ -10,6 +10,22 @@ source "$POLKACLI_COMPLETION"
 source "$POLKACLI_CONFIG"
 
 # Functions
+function get_config_value() {
+  local key="$1"
+  local regex="^$key=.*$"
+
+  # Read the config file line by line and check if it matches the config key
+  while read -r line; do
+    if [[ $line =~ $regex ]]; then
+      # Print the option value
+      echo "${line/$key=/}"
+      return 0
+    fi
+  done < "$POLKACLI_CONFIG"
+
+  # Config key not found, return error
+  return 1
+}
 
 function set_config_value() {
   local key="$1"
@@ -20,31 +36,35 @@ function set_config_value() {
   value=$(echo "$value" | sed 's/\//\\\//g')
 
   # Use sed to find the line with the key and replace its value
-  sed -i "s/^\($key\s*=\s*\).*$/\1$value/" "$file"
-}
-
-function get_config_value() {
-  local key="$1"
-  local regex="^#?$key=([^#]+)\s*#\s?(.*)$"
-
-  # Read the config file line by line and check if it matches the config key
-  while read -r line; do
-    if [[ $line =~ $regex ]]; then
-      # Print the option and its comment (if available)
-      echo "${BASH_REMATCH[1]} # ${BASH_REMATCH[2]}"
-      return 0
-    fi
-  done < "$POLKACLI_CONFIG"
-
-  # Config key not found, return error
-  return 1
+  sed -i "s|^$key=.*$|$key=$value|" "$file"
 }
 
 function install() {
-  # TODO: Install subcommand
+  # Print the polkacli logo
   cat "$POLKACLI_LOGO"
-  echo "Receive the chaos..."
-  echo "Installing polkacli v$POLKACLI_VERSION"
+  echo "Embrace the chaos!"
+  echo "polkacli v$POLKACLI_VERSION installer" 
+
+  # Print the current configuration file
+  echo "Current configuration values:"
+  cat "$POLKACLI_CONFIG
+
+  # Prompt the user to modify any configuration values
+  read -p "Do you want to modify any configuration values? [y/N]: " modify_config
+
+  if [[ $modify_config =~ ^[Yy]$ ]]; then
+    # Use config get and set to modify the configuration file
+    polkacli config get
+    polkacli config set
+    echo "Please run the install script again to complete the installation."
+  else
+    # Proceed with the installation
+    echo "Installing polkacli v$POLKACLI_VERSION..."
+
+    # TODO: add installation commands here
+
+    echo "Installation complete!"
+  fi
 }
 
 # Service commands
@@ -101,7 +121,7 @@ shots() {
 }
 
 # Updating polkadot client
-dot() {
+polkadot() {
   case "$1" in
     version)
       polkadot --version
@@ -183,16 +203,16 @@ case "$1" in
     shift
     shots "$@"
     ;;
-  "dot")
+  "polkadot")
     shift
-    dot "$@"
+    polkadot "$@"
     ;;
   "config")
     shift
     config "$@"
     ;;
   *)
-    echo "Usage: polkacli [install|service|rpc|shots|dot|config]"
+    echo "Usage: polkacli [config|polkadot|install|service|shots|rpc]"
     exit 1
     ;;
 esac
