@@ -1,72 +1,200 @@
 #!/bin/bash
 
-# Set the network and database
-export NETWORK=kusama
-export DATABASE=rocksdb
+# Import configuration values from the config file
+POLKACLI_PATH="$HOME/.config/polkacli"
+POLKACLI_COMPLETION="$POLKACLI_PATH/completion.sh"
+POLKACLI_CONFIG="$POLKACLI_PATH/config"
+POLKACLI_LOGO="$POLKACLI_PATH/logo.ansi"
+POLKACLI_VERSION="0.2.0"
+source "$POLKACLI_COMPLETION"
+source "$POLKACLI_CONFIG"
 
-# Validator service
-commands=("edit" "enable" "disable" "start" "stop" "status" "reload" "restart")
-for command in "${commands[@]}"; do
-  function "$command"() {
-    sudo systemctl "$command" "$NETWORK.service"
-  }
-done
+# Functions
 
-# Logs CentOS/Rocky
-function logsnow() { sudo tail -f /var/log/messages; }
-function logs() { sudo tail -n 1000 /var/log/messages; }
+function set_config_value() {
+  local key="$1"
+  local value="$2"
+  local file="$POLKACLI_CONFIG"
 
-# Updating polkadot client
-function version() { polkadot --version; }
-function download() {
-    curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith("polkadot")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version;
+  # Escape slashes in value to prevent issues with sed
+  value=$(echo "$value" | sed 's/\//\\\//g')
+
+  # Use sed to find the line with the key and replace its value
+  sed -i "s/^\($key\s*=\s*\).*$/\1$value/" "$file"
 }
-function update() { stop && sudo cp polkadot_latest /usr/local/bin/polkadot && start; }
-function scriptupdate() {
-    git clone https://github.com/kusamaxi/polkacli ~/polkacli
-    mv ~/polkacli/polkacli ~/.polkacli
-    source ~/.bashrc
-    rm -rf ~/polkacli
+
+function get_config_value() {
+  local key="$1"
+  local regex="^#?$key=([^#]+)\s*#\s?(.*)$"
+
+  # Read the config file line by line and check if it matches the config key
+  while read -r line; do
+    if [[ $line =~ $regex ]]; then
+      # Print the option and its comment (if available)
+      echo "${BASH_REMATCH[1]} # ${BASH_REMATCH[2]}"
+      return 0
+    fi
+  done < "$POLKACLI_CONFIG"
+
+  # Config key not found, return error
+  return 1
+}
+
+function install() {
+  # TODO: Install subcommand
+  cat "$POLKACLI_LOGO"
+  echo "Receive the chaos..."
+  echo "Installing polkacli v$POLKACLI_VERSION"
+}
+
+# Service commands
+service() {
+  case "$1" in
+    edit)
+      $EDITOR "$CONFIG_FILE"
+      ;;
+    enable|disable|start|stop|status|reload|restart)
+      sudo systemctl "$@" "$NETWORK.service"
+      ;;
+    *)
+      echo "Invalid command: $1"
+      ;;
+  esac
+}
+
+# RPC-commands
+rpc() {
+  case "$1" in
+    rotatekeys)
+      curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' "http://localhost:$RPC_PORT"
+      ;;
+    epochauthorship)
+      curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "babe_epochAuthorship", "params":[]}' "http://localhost:$RPC_PORT"
+      ;;
+    *)
+      echo "Invalid command: $1"
+      ;;
+  esac
 }
 
 # Installing polkashots (https://ksm-rocksdb.polkashots.io/)
-function shotdl() { wget https://ksm-rocksdb.polkashots.io/snapshot -O ~/kusama.RocksDb.tar.lz4; }
-function shotupdate() {
-    if stop; then
-        rm -rf ~/.local/share/polkadot/chains/ksmcc3
-        mkdir -p ~/.local/share/polkadot/chains/ksmcc3
-        lz4 -c -d kusama.RocksDb.tar.lz4 | tar -x -C ~/.local/share/polkadot/chains/ksmcc3
-        start
-    fi
+shots() {
+  case "$1" in
+    download)
+      wget "https://$NETWORK-rocksdb.polkashots.io/snapshot" -O "$HOME/$NETWORK.RocksDb.tar.lz4"
+      ;;
+    update)
+      if sudo systemctl stop "$NETWORK.service"; then
+        rm -rf "$BASE_PATH/chains/$NETWORK"
+        mkdir -p "$BASE_PATH/chains/$NETWORK"
+        lz4 -c -d "$HOME/$NETWORK.RocksDb.tar.lz4" | tar -x -C "$BASE_PATH/chains/$NETWORK"
+        sudo systemctl start "$NETWORK.service"
+      fi
+      ;;
+    delete)
+      rm -v "$HOME/$NETWORK.RocksDb.tar.lz4"
+      ;;
+    *)
+      echo "Invalid command: $1"
+      ;;
+  esac
 }
-function shotdel() { rm -v ~/kusama.RocksDb.tar.lz4; }
 
-# RPC-commands(advanced)
-function rotatekeys() {
-    curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933 >> ~/sessionkeys.log
-    tail -1 ~/sessionkeys.log
+# Updating polkadot client
+dot() {
+  case "$1" in
+    version)
+      polkadot --version
+      ;;
+    download)
+      curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith("polkadot")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version
+      ;;
+    update)
+      if sudo systemctl stop "$NETWORK.service"; then
+        sudo cp polkadot_latest /usr/local/bin/polkadot
+        sudo systemctl start "$NETWORK.service"
+      fi
+      ;;
+    *)
+      echo "Invalid command: $1"
+      ;;
+  esac
 }
-function epochauthorship() {
-    curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "babe_epochAuthorship", "params":[]}' http://localhost:9933
+
+function config() {
+  case "$1" in
+    "get")
+      get_config_value "$2"
+      ;;
+    "set")
+      set_config_value "$2" "$3"
+      ;;
+    "print")
+      cat "$POLKACLI_CONFIG"
+      ;;
+    *)
+      echo "Usage: polkacli config [get|set|print] [key] [value]"
+      return 1
+      ;;
+  esac
 }
 
 # Define the polkacli command
-function polkacli() {
-  # Get the name of the function to call
-  local function_name="$1"
-
-  # Shift the arguments to remove the function name
+polkacli() {
+  local command="$1"
   shift
 
-  # Call the specified function with the remaining arguments
-  "$function_name" "$@"
+  case "$command" in
+    service)
+      service "$@"
+      ;;
+    rpc)
+      rpc "$@"
+      ;;
+    shots)
+      shots "$@"
+      ;;
+    dot)
+      dot "$@"
+      ;;
+    *)
+      echo "Invalid command: $command"
+      exit 1
+      ;;
+  esac
 }
 
-# Print a list of available functions when polkacli is called with no arguments
-if [[ $# -eq 0 ]]; then
-  echo "Available functions:"
-  typeset -F | awk '{print "  " $3}'
-else
-  # Call the specified function with the remaining arguments
-  polkacli "$@"
-fi
+# Main
+
+case "$1" in
+  "install")
+    shift
+    install "$@"
+    ;;
+  "service")
+    shift
+    service "$@"
+    ;;
+  "rpc")
+    shift
+    rpc "$@"
+    ;;
+  "shots")
+    shift
+    shots "$@"
+    ;;
+  "dot")
+    shift
+    dot "$@"
+    ;;
+  "config")
+    shift
+    config "$@"
+    ;;
+  *)
+    echo "Usage: polkacli [install|service|rpc|shots|dot|config]"
+    exit 1
+    ;;
+esac
+
+exit 0

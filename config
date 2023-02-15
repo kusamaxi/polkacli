@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This script is used to install and configure a Polkadot node.
+
+# Client settings
+BASE_PATH="/home/$USER/.local/share/polkadot"
+
+# Node settings
+NAME="kusama-validator-example.kusamaxi.com"
+NETWORK="kusama"
+DATABASE="rocksdb"
+PRUNING=1000 # Options: 256, 1000, archive, archive-canonical, 
+VALIDATOR=true # 
+
+# Ports
+WS_PORT=9944
+RPC_PORT=9933
+P2P_PORT=30333
+PROMETHEUS_PORT=9615
+GRAFANA_PORT=3000
+TELEMETRY_PORT=8000
+
+LOGGING_FILE="/var/log/$NETWORK.log"
+LOGGING_LEVEL="info"
+LOGGING_FORMAT="json"
+
+# Prometheus
+MONITORING_PROMETHEUS_ENABLED=true
+MONITORING_PROMETHEUS_HOST="localhost"
+
+# Grafana
+MONITORING_GRAFANA_ENABLED=true
+MONITORING_GRAFANA_HOST="localhost"
+MONITORING_GRAFANA_USER="admin"
+MONITORING_GRAFANA_PASSWORD="admin"
+MONITORING_GRAFANA_DASHBOARD="https://raw.githubusercontent.com/paritytech/substrate-telemetry/master/grafana/dashboards/polkadot.json"
+
+# Telemetry
+MONITORING_TELEMETRY_ENABLED=true
+MONITORING_TELEMETRY_URL="wss://telemetry.polkadot.io/submit/ 1"
+
+# Supported OS_DISTROLIKE: debian, rhel, arch
+OS_DISTROLIKE="debian"
+
+# SSH settings
+
