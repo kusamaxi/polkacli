@@ -1,6 +1,7 @@
-#polkacli
-
-Very simple collection of bash scripts as aliases to make it quicker to run kusama validator nodes.
+# polkacli noderunner
+polkacli is tool for running polkadot nodes from .yaml configuration files. It's purpose is to 
+simplify running nodes to drive decentralization of the network even further.
+Ansible is great, but comes with unnecessary high learning curve and its fucking slow.
 
 ## Requirements
 Root access to debian based distro or rhel based distro
