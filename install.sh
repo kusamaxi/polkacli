@@ -7,10 +7,13 @@ mkdir -p ~/.config/polkacli
 cp config ~/.config/polkacli
 
 # Copy the polkacli completion script to the config directory
-cp completion.sh ~/.config/polkacli
+cp completion ~/.config/polkacli
 
 # Copy the polkacli logo file to the config directory
 cp logo.ansi ~/.config/polkacli
+
+# Copy the usage file to the config directory
+cp usage ~/.config/polkacli
 
 # Copy the polkacli binary to the /usr/local/bin directory
 sudo cp polkacli /usr/local/bin

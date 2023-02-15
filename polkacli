@@ -175,7 +175,13 @@ shots() {
       rm -v "$HOME/$NETWORK.RocksDb.tar.lz4"
       ;;
     *)
-      echo "Invalid command: $1"
+      # if empty show show subcommands
+      if [ -z "$1" ]; then
+        echo "Usage: polkacli shots [download|update|delete]"
+        exit 1
+      else
+        echo "Invalid command: polkacli shots $1"
+      fi
       ;;
   esac
 }

@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Usage statement
 USAGE="Usage: polkacli [OPTIONS] COMMAND [ARGS]
 
 Options:
@@ -24,7 +21,6 @@ Commands:
     epochauthorship         Get the current epoch authorship information
 
   service
-    edit                    Edit the Polkadot service configuration file
     enable                  Enable the Polkadot service
     disable                 Disable the Polkadot service
     start                   Start the Polkadot service
@@ -34,16 +30,6 @@ Commands:
     restart                 Restart the Polkadot service
 
   shots
-    download                Download the latest Polkashots snapshot
-    update                  Update the Polkashots data to the latest snapshot
-    delete                  Delete the downloaded Polkashots snapshot"
-
-# Main
-case "$1" in
-  # your command cases here
-  # ...
-  *)
-    echo "$USAGE"
-    exit 1
-    ;;
-esac
+    download                Download the latest snapshot
+    update                  Update to the latest downlaoaded snapshot
+    delete                  Delete the downloaded snapshot"
