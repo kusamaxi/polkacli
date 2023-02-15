@@ -39,8 +39,8 @@ bashCopy code
 #### Usage: polkacli [OPTIONS] COMMAND [ARGS]  
   
 #### Options:  
-  -h, --help                - Show this help message and exit  
-  -v, --version             - Show version information and exit  
+  **-h, --help**                - Show this help message and exit  
+  **-v, --version**             - Show version information and exit  
   
 #### Commands:  
   **client**  
