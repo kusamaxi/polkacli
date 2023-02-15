@@ -2,14 +2,56 @@
 
 # Import configuration values from the config file
 POLKACLI_PATH="$HOME/.config/polkacli"
-POLKACLI_COMPLETION="$POLKACLI_PATH/completion.sh"
+POLKACLI_COMPLETION="$POLKACLI_PATH/completion"
 POLKACLI_CONFIG="$POLKACLI_PATH/config"
 POLKACLI_LOGO="$POLKACLI_PATH/logo.ansi"
+POLKACLI_USAGE="$POLKACLI_PATH/usage"
 POLKACLI_VERSION="0.2.0"
 source "$POLKACLI_COMPLETION"
 source "$POLKACLI_CONFIG"
+source "$POLKACLI_USAGE"
 
 # Functions
+function client() {
+  case "$1" in
+    "version")
+      local version
+      version=$(polkadot --version)
+      echo "$version"
+      ;;
+    "download")
+      local latest_version
+      latest_version=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.tag_name')
+      local latest_url
+      latest_url=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith("polkadot")) | .browser_download_url')
+      local download_path
+      download_path="$HOME/polkadot-$latest_version"
+
+      echo "Downloading polkadot v$latest_version"
+      sudo curl -L -o "$download_path" "$latest_url"
+      sudo chmod +x "$download_path"
+      polkadot --version
+      ;;
+    "update")
+      local polkadot_path="/usr/local/bin/polkadot"
+      local latest_version
+      latest_version=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.tag_name')
+      local download_path
+      download_path="$HOME/polkadot-$latest_version"
+
+      if sudo systemctl stop "$NETWORK.service"; then
+        sudo mv "$polkadot_path" "$polkadot_path.bak"
+        sudo ln -s "$download_path" "$polkadot_path"
+        sudo systemctl start "$NETWORK.service"
+      fi
+      ;;
+    *)
+      echo "Usage: polkacli client [version|download|update]"
+      exit 1
+      ;;
+  esac
+}
+
 function get_config_value() {
   local key="$1"
   local regex="^$key=.*$"
@@ -39,32 +81,65 @@ function set_config_value() {
   sed -i "s|^$key=.*$|$key=$value|" "$file"
 }
 
-function install() {
-  # Print the polkacli logo
-  cat "$POLKACLI_LOGO"
-  echo "Embrace the chaos!"
-  echo "polkacli v$POLKACLI_VERSION installer" 
+function config() {
+  case "$1" in
+    "get")
+      get_config_value "$2"
+      ;;
+    "set")
+      set_config_value "$2" "$3"
+      ;;
+    "print")
+      cat "$POLKACLI_CONFIG"
+      ;;
+    *)
+      echo "Usage: polkacli config [get|set|print] [key] [value]"
+      return 1
+      ;;
+  esac
+}
+
+function setup() {
+  echo "Setting up polkacli v$POLKACLI_VERSION" 
 
   # Print the current configuration file
   echo "Current configuration values:"
-  cat "$POLKACLI_CONFIG
+  cat "$POLKACLI_CONFIG"
 
   # Prompt the user to modify any configuration values
+  
   read -p "Do you want to modify any configuration values? [y/N]: " modify_config
 
   if [[ $modify_config =~ ^[Yy]$ ]]; then
     # Use config get and set to modify the configuration file
     polkacli config get
     polkacli config set
-    echo "Please run the install script again to complete the installation."
+    echo "Please run the setup script again to complete the setupation."
   else
-    # Proceed with the installation
-    echo "Installing polkacli v$POLKACLI_VERSION..."
+    # Proceed with the setupation
+    echo "setuping polkacli v$POLKACLI_VERSION..."
 
-    # TODO: add installation commands here
+    # TODO: add setupation commands here
 
-    echo "Installation complete!"
+    echo "setupation complete!"
   fi
+}
+
+# RPC-commands
+function rpc() {
+  case "$1" in
+    "rotatekeys")
+      curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' "http://localhost:$RPC_PORT" >> "$POLKACLI_PATH/sessionkeys.log"
+      tail -1 "$POLKACLI_PATH/sessionkeys.log"
+      ;;
+    "epochauthorship")
+      curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "babe_epochAuthorship", "params":[]}' "http://localhost:$RPC_PORT"
+      ;;
+    *)
+      echo "Usage: polkacli rpc [rotatekeys|epochauthorship]"
+      exit 1
+      ;;
+  esac
 }
 
 # Service commands
@@ -82,22 +157,7 @@ service() {
   esac
 }
 
-# RPC-commands
-rpc() {
-  case "$1" in
-    rotatekeys)
-      curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' "http://localhost:$RPC_PORT"
-      ;;
-    epochauthorship)
-      curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "babe_epochAuthorship", "params":[]}' "http://localhost:$RPC_PORT"
-      ;;
-    *)
-      echo "Invalid command: $1"
-      ;;
-  esac
-}
-
-# Installing polkashots (https://ksm-rocksdb.polkashots.io/)
+# setuping polkashots (https://ksm-rocksdb.polkashots.io/)
 shots() {
   case "$1" in
     download)
@@ -120,99 +180,51 @@ shots() {
   esac
 }
 
-# Updating polkadot client
-polkadot() {
-  case "$1" in
-    version)
-      polkadot --version
-      ;;
-    download)
-      curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest | jq -r '.assets[] | select(.name | endswith("polkadot")) | .browser_download_url' | xargs sudo curl -L -o polkadot_latest && sudo chmod +x polkadot_latest && ./polkadot_latest --version
-      ;;
-    update)
-      if sudo systemctl stop "$NETWORK.service"; then
-        sudo cp polkadot_latest /usr/local/bin/polkadot
-        sudo systemctl start "$NETWORK.service"
-      fi
-      ;;
-    *)
-      echo "Invalid command: $1"
-      ;;
-  esac
-}
-
-function config() {
-  case "$1" in
-    "get")
-      get_config_value "$2"
-      ;;
-    "set")
-      set_config_value "$2" "$3"
-      ;;
-    "print")
-      cat "$POLKACLI_CONFIG"
-      ;;
-    *)
-      echo "Usage: polkacli config [get|set|print] [key] [value]"
-      return 1
-      ;;
-  esac
-}
-
-# Define the polkacli command
-polkacli() {
-  local command="$1"
-  shift
-
-  case "$command" in
-    service)
-      service "$@"
-      ;;
-    rpc)
-      rpc "$@"
-      ;;
-    shots)
-      shots "$@"
-      ;;
-    dot)
-      dot "$@"
-      ;;
-    *)
-      echo "Invalid command: $command"
-      exit 1
-      ;;
-  esac
-}
-
 # Main
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --help)
+      cat "$POLKACLI_USAGE"
+      exit 0
+      ;;
+    --version)
+      echo "polkacli version $POLKACLI_VERSION"
+      exit 0
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
 
 case "$1" in
-  "install")
+  "client")
     shift
-    install "$@"
-    ;;
-  "service")
-    shift
-    service "$@"
-    ;;
-  "rpc")
-    shift
-    rpc "$@"
-    ;;
-  "shots")
-    shift
-    shots "$@"
-    ;;
-  "polkadot")
-    shift
-    polkadot "$@"
+    client "$@"
     ;;
   "config")
     shift
     config "$@"
     ;;
+  "setup")
+    shift
+    setup "$@"
+    ;;
+  "rpc")
+    shift
+    rpc "$@"
+    ;;
+  "service")
+    shift
+    service "$@"
+    ;;
+  "shots")
+    shift
+    shots "$@"
+    ;;
   *)
-    echo "Usage: polkacli [config|polkadot|install|service|shots|rpc]"
+    echo "Invalid command: $1"
+    cat "$POLKACLI_USAGE"
     exit 1
     ;;
 esac
