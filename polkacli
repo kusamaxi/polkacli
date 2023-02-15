@@ -136,8 +136,13 @@ function rpc() {
       curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "babe_epochAuthorship", "params":[]}' "http://localhost:$RPC_PORT"
       ;;
     *)
-      echo "Usage: polkacli rpc [rotatekeys|epochauthorship]"
-      exit 1
+      # if empty show show subcommands
+      if [ -z "$1" ]; then
+        echo "Usage: polkacli rpc [rotatekeys|epochauthorship]"
+        exit 1
+      else
+        echo "Invalid command: polkacli rpc $1"
+      fi
       ;;
   esac
 }
@@ -146,13 +151,22 @@ function rpc() {
 service() {
   case "$1" in
     edit)
-      $EDITOR "$CONFIG_FILE"
+      $EDITOR "$SERVICE_FILE"
+      ;;
+    install)
+      $EDITOR "$SERVICE_FILE"
       ;;
     enable|disable|start|stop|status|reload|restart)
       sudo systemctl "$@" "$NETWORK.service"
       ;;
     *)
-      echo "Invalid command: $1"
+      # if empty show show subcommands
+      if [ -z "$1" ]; then
+        echo "Usage: polkacli service [edit|install|enable|disable|start|stop|status|reload|restart]"
+        exit 1
+      else
+        echo "Invalid command: polkacli service $1"
+      fi
       ;;
   esac
 }
