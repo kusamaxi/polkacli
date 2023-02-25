@@ -84,10 +84,24 @@ function set_config_value() {
 function config() {
   case "$1" in
     "get")
-      get_config_value "$2"
+      # if empty show example usage
+      if [ -z "$2" ]; then
+        echo "Usage: polkacli config get [key]"
+        echo "Example: polkacli config get RPC_PORT"
+        exit 1
+      else
+        get_config_value "$2"
+      fi
       ;;
     "set")
-      set_config_value "$2" "$3"
+      # if empty show example usage
+      if [ -z "$2" ]; then
+        echo "Usage: polkacli config set [key] [value]"
+        echo "Example: polkacli config set RPC_PORT 9933"
+        exit 1
+      else
+        set_config_value "$2" "$3"
+      fi
       ;;
     "print")
       cat "$POLKACLI_CONFIG"
@@ -114,14 +128,13 @@ function setup() {
     # Use config get and set to modify the configuration file
     polkacli config get
     polkacli config set
-    echo "Please run the setup script again to complete the setupation."
+    echo "Please run the setup script again to complete the setup."
   else
-    # Proceed with the setupation
     echo "setuping polkacli v$POLKACLI_VERSION..."
+    # Update the service file with the current configuration values
+    
 
-    # TODO: add setupation commands here
-
-    echo "setupation complete!"
+    echo "setup completed!"
   fi
 }
 
@@ -208,6 +221,7 @@ while [[ "$#" -gt 0 ]]; do
       exit 0
       ;;
     --version)
+      cat "$POLKACLI_LOGO"
       echo "polkacli version $POLKACLI_VERSION"
       exit 0
       ;;
