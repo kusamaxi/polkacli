@@ -1,38 +1,5 @@
 # Polkacli
 
-
-## Requirements
-
-sudo rights to linux operating system running either debian, redhat or arch linux -like distro.
-
-## Installation
-
-To install Polkacli, follow these steps:
-
-1.  Clone the Polkacli repository:
-
-bashCopy code
-
-`git clone https://github.com/kusamaxi/polkacli` 
-
-2.  Navigate to the Polkacli directory:
-
-bashCopy code
-
-`cd polkacli` 
-
-3.  Make the installation script executable:
-
-bashCopy code
-
-`chmod +x install.sh` 
-
-4.  Run the installation script:
-
-bashCopy code
-
-`./install.sh` 
-
 ## Usage
 
 #### Usage: polkacli [OPTIONS] COMMAND [ARGS]  
@@ -50,7 +17,7 @@ bashCopy code
   **config**  
     **get** **KEY**             - Get the value of a configuration option  
     **set** **KEY** **VALUE**   - Set the value of a configuration option  
-    **print**                   - Print the current configuration options  
+    **list**                   - Print the current configuration options  
   
   **setup**                     - Set up the polkacli configuration  
   **rpc**  
