@@ -1,8 +1,8 @@
 # user_config.toml
 
 # General settings
-base_path = "/var/lib/polkadot"
-snapshot_dir = "/var/lib/polkadot/snapshots"
+base_path = "/opt/{network}"
+snapshot_dir = "/opt/{network}/snapshots"
 
 # Networks
 # Set the active network by uncommenting one of the following lines
@@ -17,6 +17,7 @@ active_network = "polkadot"
     ws_port = 9944
     listen_addr = "0.0.0.0"
     systemd_service_name = "polkadot.service"
+    monitoring_enabled = true
 
   # Kusama settings
   [networks.kusama]
@@ -24,6 +25,7 @@ active_network = "polkadot"
     ws_port = 9945
     listen_addr = "0.0.0.0"
     systemd_service_name = "kusama.service"
+    monitoring_enabled = true
 
   # Westend settings
   [networks.westend]
@@ -31,6 +33,7 @@ active_network = "polkadot"
     ws_port = 9946
     listen_addr = "0.0.0.0"
     systemd_service_name = "westend.service"
+    monitoring_enabled = true
 
 # Snapshots
 [snapshots]

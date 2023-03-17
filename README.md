@@ -1,6 +1,5 @@
-# Polkacli Noderunner
+# Polkacli
 
-Polkacli is a command-line tool for running Polkadot nodes from .yaml configuration files. Its purpose is to simplify the process of running nodes. True decentralization means that you should not know linux by heart to participate.
 
 ## Requirements
 
