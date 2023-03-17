@@ -1,0 +1,45 @@
+name: polkacli
+description: Polkadot command line interface
+version: 0.2.0
+
+args:
+- name: command
+  required: true
+  help: The main command to run
+
+commands:
+  - name: client
+    help: Manage Polkadot client
+    action: source polkacli-client.sh
+
+  - name: config
+    help: Manage configuration values
+    action: source polkacli-config.sh
+
+  - name: setup
+    help: Set up polkacli
+    action: source polkacli-setup.sh
+
+  - name: rpc
+    help: Execute RPC commands
+    action: source polkacli-rpc.sh
+
+  - name: service
+    help: Manage Polkadot service
+    action: source polkacli-service.sh
+
+  - name: shots
+    help: Manage Polkashots
+    action: source polkacli-shots.sh
+
+  - name: update
+    help: Update polkacli to the latest version
+    action: source polkacli-update.sh
+
+  - name: version
+    help: Show polkacli version
+    action: echo "polkacli version $POLKACLI_VERSION"
+
+  - name: help
+    help: Show help information
+    action: cat "$POLKACLI_USAGE"
