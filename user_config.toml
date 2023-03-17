@@ -1,0 +1,41 @@
+# user_config.toml
+
+# General settings
+base_path = "/var/lib/polkadot"
+snapshot_dir = "/var/lib/polkadot/snapshots"
+
+# Networks
+# Set the active network by uncommenting one of the following lines
+active_network = "polkadot"
+# active_network = "kusama"
+# active_network = "westend"
+
+[networks]
+  # Polkadot settings
+  [networks.polkadot]
+    rpc_port = 9933
+    ws_port = 9944
+    listen_addr = "0.0.0.0"
+    systemd_service_name = "polkadot.service"
+
+  # Kusama settings
+  [networks.kusama]
+    rpc_port = 9934
+    ws_port = 9945
+    listen_addr = "0.0.0.0"
+    systemd_service_name = "kusama.service"
+
+  # Westend settings
+  [networks.westend]
+    rpc_port = 9935
+    ws_port = 9946
+    listen_addr = "0.0.0.0"
+    systemd_service_name = "westend.service"
+
+# Snapshots
+[snapshots]
+  # Available providers: "polkashots", "provider2", "provider3"
+  provider = "polkashots"
+
+  # Database types: "rocksdb", "paritydb"
+  database_type = "rocksdb"
