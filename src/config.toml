@@ -1,0 +1,50 @@
+# General settings
+base_path = "/opt/{network}"
+snapshot_dir = "{base_path}/storage"
+
+# Network
+# Set the active network by changing the value of network
+network = "polkadot" # Options: "polkadot", "kusama", "westend"
+
+[node]
+  name = "{network}-validator.polka.run"
+  database = "rocksdb"
+  pruning = 1000
+  validator = true
+  service_name = "{network}.service"
+
+# Basic settings
+[rpc]
+  enabled = true
+  port = 9933
+  listen_addr = "0.0.0.0"
+
+[ws]
+  enabled = true
+  port = 9944
+  listen_addr = "0.0.0.0"
+
+# Snapshots
+[snapshots]
+  # Available providers: "polkashots", "provider2", "provider3"
+  provider = "polkashots"
+  # Database types: "rocksdb", "paritydb"
+  database_type = "rocksdb"
+
+# Telemetry
+[telemetry]
+  enabled = true
+  endpoint = "wss://telemetry.polkadot.io/submit/"
+  level = "system"
+
+# Advanced settings
+[advanced]
+  [grafana]
+    enabled = true
+
+  [prometheus]
+    enabled = true
+    prometheus_port = 9615
+    prometheus_listen_addr = "127.0.0.1"
+
+

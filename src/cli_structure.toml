@@ -1,0 +1,147 @@
+[application]
+name = "polkacli"
+about = "Polkadot command-line interface for managing nodes, services, and configurations"
+version = "0.4.0"
+authors = ["hitchhooker <tommi@rotko.net>"]
+
+options = [
+  { name = "help", short = "h", about = "Show this help message" },
+  { name = "version", short = "v", about = "Show version information" },
+]
+
+[[commands]]
+name = "client"
+about = "Manage the Polkadot client"
+aliases = ["dot"]
+
+[[commands.subcommands]]
+  name = "version"
+  about = "Show the version of the Polkadot client"
+  example = "polkacli client version"
+  aliases = ["v"]
+
+  [[commands.subcommands]]
+  name = "download"
+  about = "Download the latest Polkadot client binary"
+  example = "polkacli client download"
+  aliases = ["d"]
+
+  [[commands.subcommands]]
+  name = "update"
+  about = "Update the Polkadot client to the latest version"
+  example = "polkacli client update"
+  aliases = ["u"]
+
+[[commands]]
+name = "config"
+about = "Manage configuration options"
+aliases = ["cfg"]
+options = [
+  { name = "set", short = "s", about = "Set the value of a configuration option", takes_value = true },
+  { name = "get", short = "g", about = "Get the value of a configuration option" },
+  { name = "list", short = "l", about = "List the current configuration options" },
+]
+
+[[commands]]
+name = "setup"
+about = "Set up the polkacli configuration"
+aliases = ["s"]
+
+[[commands]]
+name = "rpc"
+about = "Perform RPC commands"
+aliases = ["r"]
+
+  [[commands.subcommands]]
+  name = "rotatekeys"
+  about = "Rotate the session keys"
+  example = "polkacli rpc rotatekeys"
+  aliases = ["rk"]
+
+  [[commands.subcommands]]
+  name = "epochauthorship"
+  about = "Get the current epoch authorship information"
+  example = "polkacli rpc epochauthorship"
+  aliases = ["ea"]
+
+[[commands]]
+name = "service"
+about = "Manage the Polkadot service"
+aliases = ["svc"]
+
+[[commands.subcommands]]
+  name = "enable"
+  about = "Enable the Polkadot service"
+  example = "polkacli service enable"
+  aliases = ["e"]
+
+  [[commands.subcommands]]
+  name = "disable"
+  about = "Disable the Polkadot service"
+  example = "polkacli service disable"
+  aliases = ["d"]
+
+  [[commands.subcommands]]
+  name = "start"
+  about = "Start the Polkadot service"
+  example = "polkacli service start"
+  aliases = ["s"]
+
+  [[commands.subcommands]]
+  name = "stop"
+  about = "Stop the Polkadot service"
+  example = "polkacli service stop"
+  aliases = ["stp"]
+
+  [[commands.subcommands]]
+  name = "status"
+  about = "Show the status of the Polkadot service"
+  example = "polkacli service status"
+  aliases = ["st"]
+
+  [[commands.subcommands]]
+  name = "reload"
+  about = "Reload the Polkadot service configuration"
+  example = "polkacli service reload"
+  aliases = ["r"]
+
+  [[commands.subcommands]]
+  name = "restart"
+  about = "Restart the Polkadot service"
+  example = "polkacli service restart"
+  aliases = ["rs"]
+
+[[commands]]
+name = "shots"
+about = "Manage Polkadot snapshots"
+aliases = ["sh"]
+
+  [[commands.subcommands]]
+  name = "download"
+  about = "Download the latest snapshot"
+  example = "polkacli shots download --provider polkashots --db rocksdb"
+  aliases = ["d"]
+  options = [
+    { name = "provider", short = "p", about = "Specify the snapshot provider", takes_value = true },
+    { name = "db", short = "d", about = "Specify the database type", takes_value = true },
+  ]
+
+  [[commands.subcommands]]
+  name = "update"
+  about = "Update to the latest downloaded snapshot"
+  example = "polkacli shots update --provider polkashots --db rocksdb"
+  aliases = ["u"]
+  options = [
+    { name = "provider", short = "p", about = "Specify the snapshot provider", takes_value = true },
+    { name = "db", short = "d", about = "Specify the database type", takes_value = true },
+  ]
+
+  [[commands.subcommands]]
+  name = "delete"
+  about = "Delete the downloaded snapshot"
+  example = "polkacli shots delete --provider polkashots --db rocksdb"
+  aliases = ["del"]
+  options = [
+    { name = "provider", short = "p", about = "Specify the snapshot provider", takes_value = true },
+    { name = "db", short = "d", about = "Specify the database type", takes_value = true },
+  ]
